@@ -1,17 +1,28 @@
 package com.example.androidkotlinchaning
 
 import android.os.Bundle
+import com.example.androidkotlinchaning.model.Navigator
+import com.example.androidkotlinchaning.model.impl.NavigatorImpl
 
 class AuthenticationActivity : BaseActivity() {
 
+    var navigator: Navigator = NavigatorImpl(this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_authentication)
 
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.fragment, LoginFragment(), "tag")
-            .addToBackStack(null)
-            .commit()
+        navigator.push(LoginFragment())
+    }
+
+    override fun onBackPressed() {
+        if (navigator.fragments.size == 1) {
+            finish()
+        } else {
+            super.onBackPressed()
+        }
+
+        navigator.fragments.removeLast()
     }
 }

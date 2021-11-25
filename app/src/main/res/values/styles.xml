@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="textviewStyleAuthentication" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/black_161F3D</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="textviewSecondStyleAuthentication" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/gray_70707070</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+</resources>
