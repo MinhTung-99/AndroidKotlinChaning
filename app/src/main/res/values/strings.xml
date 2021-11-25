@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">AndroidKotlinChaning</string>
+    <string name="hello_again">Hello again.</string>
+    <string name="welcome_back">Welcome back.</string>
+    <string name="email_address">EMAIL ADDRESS</string>
+    <string name="password">PASSWORD</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="sign_up">Sign up</string>
+    <string name="new_to_friendly_desi">New to Friendly Desi?</string>
+    <string name="sign_in">Sign in</string>
 </resources>

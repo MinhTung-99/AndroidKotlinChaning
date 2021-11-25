@@ -24,7 +24,7 @@ class LoginFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.txtSignUp.setOnClickListener {
-            replaceFragment(SignUpFragment())
+            (activity as? AuthenticationActivity)?.navigator?.push(SignUpFragment())
         }
     }
 }
