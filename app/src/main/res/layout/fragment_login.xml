@@ -62,8 +62,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/hello_again"
-        android:textSize="18sp"
-        android:textColor="@color/color_text_authentication"
+        style="@style/textviewStyleAuthentication"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guideline_5" />
@@ -74,8 +73,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/welcome_back"
-        android:textColor="@color/color_text_authentication"
-        android:textSize="18sp"
+        style="@style/textviewStyleAuthentication"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView1" />
@@ -93,8 +91,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="22dp"
         android:text="@string/email_address"
-        android:textSize="10sp"
-        android:textColor="@color/second_color_text_authentication"
+        style="@style/textviewSecondStyleAuthentication"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/guideline_2" />
 
@@ -106,7 +103,7 @@
         android:textSize="16sp"
         android:paddingLeft="0dp"
         android:background="@drawable/edt_bg_selected"
-        android:textColor="@color/color_text_authentication"
+        android:textColor="@color/black_161F3D"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -118,8 +115,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:text="@string/password"
-        android:textSize="10sp"
-        android:textColor="@color/second_color_text_authentication"
+        style="@style/textviewSecondStyleAuthentication"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edt_email" />
 
@@ -130,7 +126,7 @@
         android:layout_marginLeft="20dp"
         android:background="@android:color/transparent"
         android:inputType="textPassword"
-        android:textColor="@color/color_text_authentication"
+        android:textColor="@color/black_161F3D"
         app:layout_constraintEnd_toStartOf="@+id/txt_forgot_password"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
@@ -142,7 +138,7 @@
         android:layout_marginRight="25dp"
         android:text="@string/forgot_password"
         android:textSize="12sp"
-        android:textColor="@color/color_text_authentication"
+        android:textColor="@color/black_161F3D"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
@@ -152,7 +148,7 @@
         android:layout_height="0.3dp"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="15dp"
-        android:background="@color/second_color_text_authentication"
+        android:background="@color/gray_70707070"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_forgot_password" />
@@ -181,7 +177,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:text="@string/new_to_friendly_desi"
-        android:textColor="@color/second_color_text_authentication"
+        android:textColor="@color/gray_70707070"
         app:layout_constraintEnd_toStartOf="@+id/txt_sign_up"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="packed"
@@ -194,7 +190,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:text="@string/sign_up"
-        android:textColor="@color/bg_btn_authentication"
+        android:textColor="@color/pink_E9446A"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textView5"

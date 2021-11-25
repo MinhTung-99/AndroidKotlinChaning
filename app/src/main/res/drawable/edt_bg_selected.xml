@@ -8,7 +8,7 @@
         <shape android:shape="rectangle" >
             <stroke
                 android:width="1px"
-                android:color="@color/second_color_text_authentication" />
+                android:color="@color/gray_70707070" />
 
             <padding
                 android:bottom="5dp"
