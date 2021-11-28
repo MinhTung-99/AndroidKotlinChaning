@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.androidkotlinchaning.databinding.FragmentSignUpBinding
@@ -16,7 +17,7 @@ import com.example.androidkotlinchaning.viewmodel.SignUpViewModel
 class SignUpFragment : BaseFragment() {
 
     lateinit var binding: FragmentSignUpBinding
-    lateinit var viewModel: SignUpViewModel
+    private val viewModel: SignUpViewModel by activityViewModels()
     lateinit var navigator: Navigator
 
     override fun onCreateView(
@@ -32,11 +33,15 @@ class SignUpFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         navigator = NavigatorImpl(requireActivity() as BaseActivity)
-        viewModel = ViewModelProvider(this).get(SignUpViewModel::class.java)
-        val user = User("1", "2", "3")
-        viewModel.register(user)
+        //initViewModel()
 
         binding.btnSignUp.setOnClickListener {
+            val user = User(
+                binding.edtName.text.toString(),
+                binding.edtEmail.text.toString(),
+                binding.edtPassword.text.toString()
+            )
+            viewModel.register(user)
             navigator.pop()
         }
     }
