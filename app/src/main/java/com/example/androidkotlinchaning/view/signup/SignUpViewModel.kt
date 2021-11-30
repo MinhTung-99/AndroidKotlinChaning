@@ -1,10 +1,11 @@
-package com.example.androidkotlinchaning.viewmodel
+package com.example.androidkotlinchaning.view.signup
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.androidkotlinchaning.BaseViewModel
 import com.example.androidkotlinchaning.model.User
 
-class SignUpViewModel : ViewModel() {
+class SignUpViewModel : BaseViewModel() {
 
     var userLiveData : MutableLiveData<User> = MutableLiveData()
 

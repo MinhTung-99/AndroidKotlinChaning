@@ -1,21 +1,20 @@
-package com.example.androidkotlinchaning
+package com.example.androidkotlinchaning.view.Login
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import com.example.androidkotlinchaning.AuthenticationActivity
+import com.example.androidkotlinchaning.BaseFragment
 import com.example.androidkotlinchaning.databinding.FragmentLoginBinding
-import com.example.androidkotlinchaning.model.User
-import com.example.androidkotlinchaning.viewmodel.SignUpViewModel
+import com.example.androidkotlinchaning.view.signup.SignUpFragment
 
 class LoginFragment : BaseFragment() {
 
     lateinit var binding: FragmentLoginBinding
-    private val viewModel: SignUpViewModel by activityViewModels()
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,8 +32,8 @@ class LoginFragment : BaseFragment() {
             (activity as? AuthenticationActivity)?.navigator?.push(SignUpFragment())
         }
 
-        viewModel.getUserRegis().observe(viewLifecycleOwner,  Observer {
+        /*(activity as? AuthenticationActivity)?.viewModel?.getUserRegis()?.observe(viewLifecycleOwner,  Observer {
             Toast.makeText(context, it.emailAddress + "===", Toast.LENGTH_SHORT).show()
-        })
+        })*/
     }
 }
