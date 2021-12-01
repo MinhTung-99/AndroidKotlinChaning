@@ -1,11 +1,13 @@
 package com.example.androidkotlinchaning.view.signup
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import com.example.androidkotlinchaning.AuthenticationActivity
 import com.example.androidkotlinchaning.BaseActivity
@@ -21,9 +23,12 @@ import com.google.gson.GsonBuilder
 
 class SignUpFragment : BaseFragment() {
 
-    lateinit var binding: FragmentSignUpBinding
-    lateinit var navigator: Navigator
-    lateinit var viewModel: SignUpViewModel
+    private lateinit var binding: FragmentSignUpBinding
+    private lateinit var navigator: Navigator
+    private lateinit var viewModel: SignUpViewModel
+    private lateinit var userManagerImpl: UserManagerImpl
+    private lateinit var sharePreferentManager: SharePreferentManager
+    private var sharedPref: SharedPreferences? = null
 
 
     override fun onCreateView(
@@ -40,35 +45,39 @@ class SignUpFragment : BaseFragment() {
 
         navigator = NavigatorImpl(requireActivity() as BaseActivity)
         //viewModel = ViewModelProvider(this).get(SignUpViewModel::class.java)
-
+        sharedPref = context?.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
+        sharePreferentManager = SharePreferentManagerImpl(sharedPref)
+        userManagerImpl = UserManagerImpl(sharePreferentManager)
+        val gson = GsonBuilder().create()
         binding.btnSignUp.setOnClickListener {
-            val user = User(
-                binding.edtName.text.toString(),
-                binding.edtEmail.text.toString(),
-                binding.edtPassword.text.toString()
-            )
-
-            val sharedPref = context?.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
-            val sharePreferentManager = SharePreferentManagerImpl(sharedPref)
-            val userManagerImpl = UserManagerImpl(sharePreferentManager)
-            val isAdded = userManagerImpl.addUser(user)
-
-            if (isAdded.value == true) {
-                val gson = GsonBuilder().create()
+            if (sharePreferentManager.read("users") != null) {
                 val model = gson.fromJson(sharePreferentManager.read("users"),Array<User>::class.java).toList()
-                Toast.makeText(context, model[0].emailAddress, Toast.LENGTH_SHORT).show()
+                val isAdded = addUser(model.size + 1)
+
+                if (isAdded.value == true) {
+                    Toast.makeText(context, sharePreferentManager.read("users"), Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                val isAdded = addUser(1)
+
+                if (isAdded.value == true) {
+                    val model = gson.fromJson(sharePreferentManager.read("users"),Array<User>::class.java).toList()
+                    Toast.makeText(context, sharePreferentManager.read("users"), Toast.LENGTH_SHORT).show()
+                }
             }
-
-            /*val sharedPref = context?.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
-            val sharePreferentManager = SharePreferentManagerImpl(sharedPref)
-            sharePreferentManager.save("name", user.fullName)
-            sharePreferentManager.save("email", user.emailAddress)
-            sharePreferentManager.save("password", user.password)
-
-            Toast.makeText(context, sharePreferentManager.read("name"), Toast.LENGTH_SHORT).show()*/
 
             //viewModel.register(user)
             //navigator.pop()
         }
+    }
+
+    private fun addUser (size: Int) : LiveData<Boolean> {
+        val user = User(
+            size,
+            binding.edtName.text.toString(),
+            binding.edtEmail.text.toString(),
+            binding.edtPassword.text.toString()
+        )
+        return userManagerImpl.addUser(user)
     }
 }

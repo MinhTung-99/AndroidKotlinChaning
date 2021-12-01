@@ -12,11 +12,14 @@ import org.json.JSONArray
 class UserManagerImpl(val sharePreferentManager: SharePreferentManager?) : UserManager {
 
     lateinit var isAdded: MutableLiveData<Boolean>
-    var users = ArrayList<User>()
+    private var users = ArrayList<User>()
 
     override fun addUser(user: User): LiveData<Boolean> {
-        users.add(user)
         val gson = GsonBuilder().create()
+        if (sharePreferentManager?.read("users") != null) {
+            users.addAll(gson.fromJson(sharePreferentManager?.read("users"), Array<User>::class.java).toList())
+        }
+        users.add(user)
         val json = gson.toJson(users)
         sharePreferentManager?.save("users", json)
 
