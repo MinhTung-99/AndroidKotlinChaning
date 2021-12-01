@@ -1,20 +1,20 @@
 package com.example.androidkotlinchaning.view.signup
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.LiveData
 import com.example.androidkotlinchaning.BaseViewModel
 import com.example.androidkotlinchaning.model.User
+import com.example.androidkotlinchaning.model.UserManager
 
-class SignUpViewModel : BaseViewModel() {
+class SignUpViewModel(
+    private val userManager: UserManager
+) : BaseViewModel() {
 
-    var userLiveData : MutableLiveData<User> = MutableLiveData()
-
-    fun register (user: User) {
-        userLiveData.postValue(user)
+    fun addUser(user: User): LiveData<Boolean> {
+        return userManager.addUser(user)
     }
 
-    fun getUserRegis () : MutableLiveData<User> {
-        return userLiveData
+    fun getUser(): LiveData<List<User>> {
+        return userManager.getUsers()
     }
 
 }
