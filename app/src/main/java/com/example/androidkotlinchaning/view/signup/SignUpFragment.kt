@@ -20,7 +20,6 @@ class SignUpFragment : BaseFragment() {
     private lateinit var binding: FragmentSignUpBinding
     private lateinit var navigator: Navigator
 
-    private var sharedPref: SharedPreferences? = null
     lateinit var viewModelFactory: SignUpViewModelFactory
     private lateinit var viewModel: SignUpViewModel
 

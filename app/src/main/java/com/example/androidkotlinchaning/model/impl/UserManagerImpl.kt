@@ -15,10 +15,7 @@ class UserManagerImpl(val sharePreferentManager: SharePreferentManager?) : UserM
         var users = ArrayList<User>()
         if (sharePreferentManager?.read("users") != null) {
             users.addAll(
-                gson.fromJson(
-                    sharePreferentManager?.read("users"),
-                    Array<User>::class.java
-                ).toList()
+                sharePreferentManager.readArray("users", emptyArray())
             )
         }
         users.add(user)
