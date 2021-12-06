@@ -23,9 +23,13 @@ class SharePreferentManagerImpl(val sharedPref: SharedPreferences?) : SharePrefe
 
     override fun <T> readArray(key: String, list: Array<T>): List<T> {
         val gson = GsonBuilder().create()
-        return gson.fromJson(
-            read(key),
-            list::class.java
-        ).toList()
+        if (read("users") != null) {
+            return gson.fromJson(
+                read(key),
+                list::class.java
+            ).toList()
+        }
+
+        return emptyList()
     }
 }

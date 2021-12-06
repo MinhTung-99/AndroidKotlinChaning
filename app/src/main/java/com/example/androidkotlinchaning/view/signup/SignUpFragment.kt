@@ -54,6 +54,8 @@ class SignUpFragment : BaseFragment() {
 
             if (isAdded?.value == true) {
                 Toast.makeText(context, viewModel.getUser().value?.size.toString() + "==", Toast.LENGTH_SHORT).show()
+            } else{
+                Toast.makeText(context,  "email not true", Toast.LENGTH_SHORT).show()
             }
 
             //viewModel.register(user)

@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.androidkotlinchaning.model.SharePreferentManager
 import com.example.androidkotlinchaning.model.User
 import com.example.androidkotlinchaning.model.UserManager
+import com.example.androidkotlinchaning.utlis.ValidateUtils
 import com.google.gson.GsonBuilder
 
 class UserManagerImpl(val sharePreferentManager: SharePreferentManager?) : UserManager {
@@ -13,17 +14,20 @@ class UserManagerImpl(val sharePreferentManager: SharePreferentManager?) : UserM
     override fun addUser(user: User): LiveData<Boolean> {
         val gson = GsonBuilder().create()
         var users = ArrayList<User>()
-        if (sharePreferentManager?.read("users") != null) {
+        sharePreferentManager?.let {
             users.addAll(
-                sharePreferentManager.readArray("users", emptyArray())
+                it.readArray("users", emptyArray())
             )
         }
-        users.add(user)
-        val json = gson.toJson(users)
-        sharePreferentManager?.save("users", json)
-
         val isAdded = MutableLiveData<Boolean>()
-        isAdded.value = true
+        if (ValidateUtils.isValidateEmail(user.emailAddress)) {
+            users.add(user)
+            val json = gson.toJson(users)
+            sharePreferentManager?.save("users", json)
+            isAdded.value = true
+        } else{
+            isAdded.value = false
+        }
 
         return isAdded
     }
@@ -41,10 +45,9 @@ class UserManagerImpl(val sharePreferentManager: SharePreferentManager?) : UserM
     }
 
     override fun getUsers(): LiveData<List<User>> {
-        val gson = GsonBuilder().create()
         var users: List<User> = ArrayList()
-        if (sharePreferentManager?.read("users") != null) {
-            users = gson.fromJson(sharePreferentManager?.read("users"), Array<User>::class.java).toList()
+        if (sharePreferentManager != null) {
+            users = sharePreferentManager.readArray("users", emptyArray())
         }
 
         val usersLiveData = MutableLiveData<List<User>>()
