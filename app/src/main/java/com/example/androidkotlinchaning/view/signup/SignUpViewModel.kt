@@ -13,7 +13,7 @@ class SignUpViewModel(
 ) : BaseViewModel() {
     fun addUser(user: User): LiveData<Boolean> {
         if (validateEmail(user.emailAddress)) {
-            return userManager.addUser(user, UserManager.InsertPolicy.UPDATE)
+            return userManager.addUser(user, UserManager.InsertPolicy.IGNORE)
         }
 
         return just(false)

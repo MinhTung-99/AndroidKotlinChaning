@@ -2,6 +2,7 @@ package com.example.androidkotlinchaning.model.impl
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import com.example.androidkotlinchaning.model.SharePreferentManager
 import com.example.androidkotlinchaning.model.User
 import com.example.androidkotlinchaning.model.UserManager
@@ -22,7 +23,7 @@ class UserManagerImpl(private val sharePreferentManager: SharePreferentManager?)
             UserManager.InsertPolicy.UPDATE -> {
                 if (userExist) {
                     //update
-                    updateUser(user)
+                    return Transformations.map(updateUser(user)) { return@map it == null }
                 } else {
                     //insert
                     insertUser(user, users)
@@ -30,8 +31,11 @@ class UserManagerImpl(private val sharePreferentManager: SharePreferentManager?)
                 }
             }
             UserManager.InsertPolicy.IGNORE -> {
-                if (userExist) {
-                    return just(false)
+                return if (userExist) {
+                    just(false)
+                } else {
+                    insertUser(user, users)
+                    just(true)
                 }
             }
         }
@@ -42,7 +46,7 @@ class UserManagerImpl(private val sharePreferentManager: SharePreferentManager?)
         return just(true)
     }
 
-    private fun insertUser(user: User, users: ArrayList<User>){
+    private fun insertUser(user: User, users: ArrayList<User>) {
         users.add(user)
         val json = gson.toJson(users)
         sharePreferentManager?.save("users", json)
@@ -57,8 +61,8 @@ class UserManagerImpl(private val sharePreferentManager: SharePreferentManager?)
         TODO("Not yet implemented")
     }
 
-    override fun updateUser(user: User): LiveData<User>? {
-        val users = getUsers().value ?: return null
+    override fun updateUser(user: User): LiveData<User?> {
+        val users = getUsers().value ?: return just(null)
         for (i in users.indices) {
             if (users[i].id == user.id) {
                 return just(user)

@@ -57,16 +57,12 @@ class SignUpFragment : BaseFragment() {
             user?.let { it1 ->
                 val signUpSuccess = viewModel.addUser(it1)
                 signUpSuccess.observe(requireActivity(), {
-                    if (it == true) {
-                        Toast.makeText(
-                            context,
-                            viewModel.getUser().value?.size.toString() + "==",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    } else {
-                        Toast.makeText(context, "email not true", Toast.LENGTH_SHORT).show()
-                    }
                     signUpSuccess.removeObservers(viewLifecycleOwner)
+                    if (it == true) {
+                        navigator.pop()
+                    } else {
+                        Toast.makeText(context, "not success", Toast.LENGTH_SHORT).show()
+                    }
                 })
             }
 
@@ -81,9 +77,6 @@ class SignUpFragment : BaseFragment() {
             viewModel.isUser.observe(requireActivity(), {
                 Toast.makeText(context, "Success" + it.fullName, Toast.LENGTH_SHORT).show()
             })*/
-
-            //viewModel.register(user)
-            //navigator.pop()
         }
     }
 }
