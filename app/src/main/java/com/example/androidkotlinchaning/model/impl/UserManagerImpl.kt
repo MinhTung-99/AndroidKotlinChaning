@@ -63,12 +63,19 @@ class UserManagerImpl(private val sharePreferentManager: SharePreferentManager?)
 
     override fun updateUser(user: User): LiveData<User?> {
         val users = getUsers().value ?: return just(null)
-        for (i in users.indices) {
-            if (users[i].id == user.id) {
-                return just(user)
+        val usersUpdate = users.toMutableList()
+        var userUpdate: User? = null
+
+        users.forEachIndexed { index, u ->
+            if (u.id == user.id) {
+                usersUpdate[index] = u
+                userUpdate = u
+                val json = gson.toJson(users)
+                sharePreferentManager?.save("users", json)
             }
         }
-        return null
+
+        return just(userUpdate)
     }
 
     override fun getUser(id: Long): LiveData<User> {
