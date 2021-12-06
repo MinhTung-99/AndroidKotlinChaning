@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
+import androidx.lifecycle.*
 import com.example.androidkotlinchaning.BaseActivity
 import com.example.androidkotlinchaning.BaseFragment
 import com.example.androidkotlinchaning.databinding.FragmentSignUpBinding
@@ -13,6 +15,7 @@ import com.example.androidkotlinchaning.model.Navigator
 import com.example.androidkotlinchaning.model.User
 import com.example.androidkotlinchaning.model.impl.NavigatorImpl
 import com.example.androidkotlinchaning.utlis.InjectUtils
+import com.example.androidkotlinchaning.utlis.just
 import com.google.gson.GsonBuilder
 
 class SignUpFragment : BaseFragment() {
@@ -41,8 +44,9 @@ class SignUpFragment : BaseFragment() {
         navigator = NavigatorImpl(requireActivity() as BaseActivity)
 
         binding.btnSignUp.setOnClickListener {
+            //ADD
             val user = viewModel.getUser().value?.let { it1 ->
-                User (
+                User(
                     it1.size,
                     binding.edtName.text.toString(),
                     binding.edtEmail.text.toString(),
@@ -50,13 +54,33 @@ class SignUpFragment : BaseFragment() {
                 )
             }
 
-            val isAdded = user?.let { it1 -> viewModel.addUser(it1) }
-
-            if (isAdded?.value == true) {
-                Toast.makeText(context, viewModel.getUser().value?.size.toString() + "==", Toast.LENGTH_SHORT).show()
-            } else{
-                Toast.makeText(context,  "email not true", Toast.LENGTH_SHORT).show()
+            user?.let { it1 ->
+                val signUpSuccess = viewModel.addUser(it1)
+                signUpSuccess.observe(requireActivity(), {
+                    if (it == true) {
+                        Toast.makeText(
+                            context,
+                            viewModel.getUser().value?.size.toString() + "==",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        Toast.makeText(context, "email not true", Toast.LENGTH_SHORT).show()
+                    }
+                    signUpSuccess.removeObservers(viewLifecycleOwner)
+                })
             }
+
+            /*//UPDATE
+            val user = User(
+                2,
+                binding.edtName.text.toString(),
+                binding.edtEmail.text.toString(),
+                binding.edtPassword.text.toString()
+            )
+            viewModel.addUser(user)
+            viewModel.isUser.observe(requireActivity(), {
+                Toast.makeText(context, "Success" + it.fullName, Toast.LENGTH_SHORT).show()
+            })*/
 
             //viewModel.register(user)
             //navigator.pop()

@@ -1,43 +1,70 @@
 package com.example.androidkotlinchaning.model.impl
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.androidkotlinchaning.model.SharePreferentManager
 import com.example.androidkotlinchaning.model.User
 import com.example.androidkotlinchaning.model.UserManager
-import com.example.androidkotlinchaning.utlis.ValidateUtils
+import com.example.androidkotlinchaning.utlis.just
 import com.google.gson.GsonBuilder
 
-class UserManagerImpl(val sharePreferentManager: SharePreferentManager?) : UserManager {
+class UserManagerImpl(private val sharePreferentManager: SharePreferentManager?) : UserManager {
+    private val gson = GsonBuilder().create()
 
-    override fun addUser(user: User): LiveData<Boolean> {
-        val gson = GsonBuilder().create()
-        var users = ArrayList<User>()
-        sharePreferentManager?.let {
-            users.addAll(
-                it.readArray("users", emptyArray())
-            )
+    override fun addUser(user: User, policy: UserManager.InsertPolicy): LiveData<Boolean> {
+        val users = ArrayList<User>()
+        getUsers().value?.let {
+            users.addAll(it)
         }
-        val isAdded = MutableLiveData<Boolean>()
-        if (ValidateUtils.isValidateEmail(user.emailAddress)) {
-            users.add(user)
-            val json = gson.toJson(users)
-            sharePreferentManager?.save("users", json)
-            isAdded.value = true
-        } else{
-            isAdded.value = false
+        val userExist = isExist(user.emailAddress)
+
+        when (policy) {
+            UserManager.InsertPolicy.UPDATE -> {
+                if (userExist) {
+                    //update
+                    updateUser(user)
+                } else {
+                    //insert
+                    insertUser(user, users)
+                    return just(true)
+                }
+            }
+            UserManager.InsertPolicy.IGNORE -> {
+                if (userExist) {
+                    return just(false)
+                }
+            }
         }
 
-        return isAdded
+        users.add(user)
+        val json = gson.toJson(users)
+        sharePreferentManager?.save("users", json)
+        return just(true)
+    }
+
+    private fun insertUser(user: User, users: ArrayList<User>){
+        users.add(user)
+        val json = gson.toJson(users)
+        sharePreferentManager?.save("users", json)
+    }
+
+    private fun isExist(email: String): Boolean {
+        val users = getUsers().value ?: return false
+        return users.filter { it.emailAddress == email }.isNotEmpty()
     }
 
     override fun deleteUser(user: User): LiveData<Unit> {
         TODO("Not yet implemented")
     }
 
-    override fun updateUser(user: User): LiveData<User> {
-        TODO("Not yet implemented")
+    override fun updateUser(user: User): LiveData<User>? {
+        val users = getUsers().value ?: return null
+        for (i in users.indices) {
+            if (users[i].id == user.id) {
+                return just(user)
+            }
+        }
+        return null
     }
 
     override fun getUser(id: Long): LiveData<User> {
