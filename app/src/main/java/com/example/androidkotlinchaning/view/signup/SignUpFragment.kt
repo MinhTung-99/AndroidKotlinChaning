@@ -1,13 +1,10 @@
 package com.example.androidkotlinchaning.view.signup
 
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.Toast
-import androidx.lifecycle.*
 import com.example.androidkotlinchaning.BaseActivity
 import com.example.androidkotlinchaning.BaseFragment
 import com.example.androidkotlinchaning.databinding.FragmentSignUpBinding
@@ -15,17 +12,18 @@ import com.example.androidkotlinchaning.model.Navigator
 import com.example.androidkotlinchaning.model.User
 import com.example.androidkotlinchaning.model.impl.NavigatorImpl
 import com.example.androidkotlinchaning.utlis.InjectUtils
-import com.example.androidkotlinchaning.utlis.just
-import com.google.gson.GsonBuilder
+import com.example.androidkotlinchaning.utlis.handleDelay
+import com.example.androidkotlinchaning.utlis.showToast
+import com.example.androidkotlinchaning.view.Login.LoginFragment
 
-class SignUpFragment : BaseFragment() {
+class SignUpFragment(val callback:  ((String, String) -> Unit)? = null) : BaseFragment() {
 
-    private lateinit var binding: FragmentSignUpBinding
+
     private lateinit var navigator: Navigator
 
     lateinit var viewModelFactory: SignUpViewModelFactory
     private lateinit var viewModel: SignUpViewModel
-
+    private lateinit var binding: FragmentSignUpBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,6 +42,7 @@ class SignUpFragment : BaseFragment() {
         navigator = NavigatorImpl(requireActivity() as BaseActivity)
 
         binding.btnSignUp.setOnClickListener {
+            showProgressDialog(true)
             //ADD
             val user = viewModel.getUser().value?.let { it1 ->
                 User(
@@ -59,9 +58,21 @@ class SignUpFragment : BaseFragment() {
                 signUpSuccess.observe(requireActivity(), {
                     signUpSuccess.removeObservers(viewLifecycleOwner)
                     if (it == true) {
-                        navigator.pop()
+                        handleDelay(300) {
+                            showProgressDialog(false)
+                            /*Toast.makeText(
+                                context,
+                                "${navigator.fragments.size}===",
+                                Toast.LENGTH_SHORT
+                            ).show()*/
+                            callback?.invoke(binding.edtEmail.text.toString(), binding.edtPassword.text.toString())
+                            navigator.pop()
+                        }
                     } else {
-                        Toast.makeText(context, "not success", Toast.LENGTH_SHORT).show()
+                        handleDelay(300) {
+                            showProgressDialog(false)
+                            context?.let { context -> showToast(context, "not success") }
+                        }
                     }
                 })
             }

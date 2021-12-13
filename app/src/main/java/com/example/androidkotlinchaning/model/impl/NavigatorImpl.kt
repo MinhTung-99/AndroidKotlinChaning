@@ -1,5 +1,6 @@
 package com.example.androidkotlinchaning.model.impl
 
+import android.util.Log
 import androidx.fragment.app.Fragment
 import com.example.androidkotlinchaning.BaseActivity
 import com.example.androidkotlinchaning.R
