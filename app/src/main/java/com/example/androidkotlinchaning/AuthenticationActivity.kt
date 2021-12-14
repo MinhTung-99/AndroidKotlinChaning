@@ -1,9 +1,10 @@
 package com.example.androidkotlinchaning
 
-import android.content.Context
 import android.os.Bundle
 import com.example.androidkotlinchaning.model.AuthenticationNavigator
+import com.example.androidkotlinchaning.model.Navigator
 import com.example.androidkotlinchaning.model.impl.AuthenticationNavigatorImpl
+import com.example.androidkotlinchaning.model.impl.NavigatorImpl
 import com.example.androidkotlinchaning.view.Login.LoginFragment
 
 class AuthenticationActivity : BaseActivity() {

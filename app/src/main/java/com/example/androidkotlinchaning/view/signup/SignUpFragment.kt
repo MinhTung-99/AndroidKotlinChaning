@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import com.example.androidkotlinchaning.BaseActivity
 import com.example.androidkotlinchaning.BaseFragment
 import com.example.androidkotlinchaning.databinding.FragmentSignUpBinding
-import com.example.androidkotlinchaning.model.AuthenticationNavigator
-import com.example.androidkotlinchaning.model.impl.AuthenticationNavigatorImpl
+import com.example.androidkotlinchaning.model.Navigator
+import com.example.androidkotlinchaning.model.impl.NavigatorImpl
 import com.example.androidkotlinchaning.utlis.InjectUtils
 import com.example.androidkotlinchaning.utlis.handleDelay
 import com.example.androidkotlinchaning.utlis.showToast
@@ -16,7 +16,7 @@ import com.example.androidkotlinchaning.utlis.showToast
 class SignUpFragment(val callback:  ((String, String) -> Unit)? = null) : BaseFragment() {
 
 
-    private lateinit var navigator: AuthenticationNavigator
+    private lateinit var navigator: Navigator
 
     lateinit var viewModelFactory: SignUpViewModelFactory
     private lateinit var viewModel: SignUpViewModel
@@ -36,7 +36,7 @@ class SignUpFragment(val callback:  ((String, String) -> Unit)? = null) : BaseFr
 
         InjectUtils.inject(this)
         viewModel = viewModelFactory.create(SignUpViewModel::class.java)
-        navigator = AuthenticationNavigatorImpl(requireActivity() as BaseActivity)
+        navigator = NavigatorImpl(requireActivity() as BaseActivity)
 
         binding.btnSignUp.setOnClickListener {
             showProgressDialog(true)
