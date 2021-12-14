@@ -4,22 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.example.androidkotlinchaning.BaseActivity
 import com.example.androidkotlinchaning.BaseFragment
 import com.example.androidkotlinchaning.databinding.FragmentSignUpBinding
-import com.example.androidkotlinchaning.model.Navigator
-import com.example.androidkotlinchaning.model.User
-import com.example.androidkotlinchaning.model.impl.NavigatorImpl
+import com.example.androidkotlinchaning.model.AuthenticationNavigator
+import com.example.androidkotlinchaning.model.impl.AuthenticationNavigatorImpl
 import com.example.androidkotlinchaning.utlis.InjectUtils
 import com.example.androidkotlinchaning.utlis.handleDelay
 import com.example.androidkotlinchaning.utlis.showToast
-import com.example.androidkotlinchaning.view.Login.LoginFragment
 
 class SignUpFragment(val callback:  ((String, String) -> Unit)? = null) : BaseFragment() {
 
 
-    private lateinit var navigator: Navigator
+    private lateinit var navigator: AuthenticationNavigator
 
     lateinit var viewModelFactory: SignUpViewModelFactory
     private lateinit var viewModel: SignUpViewModel
@@ -39,7 +36,7 @@ class SignUpFragment(val callback:  ((String, String) -> Unit)? = null) : BaseFr
 
         InjectUtils.inject(this)
         viewModel = viewModelFactory.create(SignUpViewModel::class.java)
-        navigator = NavigatorImpl(requireActivity() as BaseActivity)
+        navigator = AuthenticationNavigatorImpl(requireActivity() as BaseActivity)
 
         binding.btnSignUp.setOnClickListener {
             showProgressDialog(true)
@@ -51,17 +48,15 @@ class SignUpFragment(val callback:  ((String, String) -> Unit)? = null) : BaseFr
             )
             signUpSuccess.observe(requireActivity(), {
                 signUpSuccess.removeObservers(viewLifecycleOwner)
-                if (it == true) {
-                    handleDelay(300) {
-                        showProgressDialog(false)
+                handleDelay(300) {
+                    showProgressDialog(false)
+                    if (it) {
                         callback?.invoke(binding.edtEmail.text.toString(), binding.edtPassword.text.toString())
                         navigator.pop()
+                    } else {
+                        context?.showToast("not success")
                     }
-                } else {
-                    handleDelay(300) {
-                        showProgressDialog(false)
-                        context?.let { context -> showToast(context, "not success") }
-                    }
+
                 }
             })
 

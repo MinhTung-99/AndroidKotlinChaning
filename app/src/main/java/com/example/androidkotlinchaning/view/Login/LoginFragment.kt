@@ -42,8 +42,6 @@ class LoginFragment : BaseFragment() {
 
         binding.txtSignUp.setOnClickListener {
             (activity as? AuthenticationActivity)?.navigator?.push(SignUpFragment { email, password ->
-                //Toast.makeText(context, "$email == $password", Toast.LENGTH_SHORT).show()
-
                 handleDelay(100) {
                     binding.edtEmail.setText(email)
                     binding.edtPassword.setText(password)
@@ -55,21 +53,23 @@ class LoginFragment : BaseFragment() {
             showProgressDialog(true)
 
             handleDelay(300) {
-                viewModel.getUser().value?.let {
-                    val count = it.filter { user ->
-                        user.emailAddress == binding.edtEmail.text.toString() && user.password == binding.edtPassword.text.toString()
-                    }.size
+                showProgressDialog(false)
+                val loginSuccess = viewModel.login(
+                    binding.edtEmail.text.toString(),
+                    binding.edtPassword.text.toString()
+                )
 
-                    if (count > 0) {
-                        showProgressDialog(false)
-                        val intent = Intent(activity, MainActivity::class.java)
-                        startActivity(intent)
-                        activity?.finish()
+                loginSuccess.observe(requireActivity(), {
+                    if (it) {
+                        context?.let { context ->
+                            (activity as? AuthenticationActivity)?.navigator?.navigateToMain(context)
+                        }
                     } else {
-                        showProgressDialog(false)
-                        context?.let { context -> showToast(context,"account or password not true") }
+                        context?.showToast("account or password not true")
                     }
-                }
+
+                    loginSuccess.removeObservers(viewLifecycleOwner)
+                })
             }
         }
     }

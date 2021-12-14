@@ -8,7 +8,7 @@ open class BaseFragment : Fragment() {
     protected fun showProgressDialog(show: Boolean) {
         if (show) {
             if (!customProgressDialogFragment.isShowing) {
-                customProgressDialogFragment.isShowing = true;
+                customProgressDialogFragment.isShowing = true
                 activity?.let { customProgressDialogFragment.show(it?.supportFragmentManager, "") }
             }
         } else {
