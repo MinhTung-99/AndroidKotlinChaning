@@ -27,10 +27,9 @@ object InjectUtils {
 
     fun inject (fragment: Fragment) {
         this.context = fragment.requireActivity().applicationContext
-        if (fragment is SignUpFragment) {
-            fragment.viewModelFactory = SignUpViewModelFactory(userManager)
-        } else if (fragment is LoginFragment) {
-            fragment.viewModelFactory = LoginViewModelFactory(userManager)
+        when (fragment) {
+            is SignUpFragment -> fragment.viewModelFactory = SignUpViewModelFactory(userManager)
+            is LoginFragment -> fragment.viewModelFactory = LoginViewModelFactory(userManager)
         }
     }
 }

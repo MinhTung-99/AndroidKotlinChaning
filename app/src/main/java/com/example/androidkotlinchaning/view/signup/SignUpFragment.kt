@@ -43,39 +43,27 @@ class SignUpFragment(val callback:  ((String, String) -> Unit)? = null) : BaseFr
 
         binding.btnSignUp.setOnClickListener {
             showProgressDialog(true)
-            //ADD
-            val user = viewModel.getUser().value?.let { it1 ->
-                User(
-                    it1.size,
-                    binding.edtName.text.toString(),
-                    binding.edtEmail.text.toString(),
-                    binding.edtPassword.text.toString()
-                )
-            }
 
-            user?.let { it1 ->
-                val signUpSuccess = viewModel.addUser(it1)
-                signUpSuccess.observe(requireActivity(), {
-                    signUpSuccess.removeObservers(viewLifecycleOwner)
-                    if (it == true) {
-                        handleDelay(300) {
-                            showProgressDialog(false)
-                            /*Toast.makeText(
-                                context,
-                                "${navigator.fragments.size}===",
-                                Toast.LENGTH_SHORT
-                            ).show()*/
-                            callback?.invoke(binding.edtEmail.text.toString(), binding.edtPassword.text.toString())
-                            navigator.pop()
-                        }
-                    } else {
-                        handleDelay(300) {
-                            showProgressDialog(false)
-                            context?.let { context -> showToast(context, "not success") }
-                        }
+            val signUpSuccess = viewModel.addUser(
+                binding.edtName.text.toString(),
+                binding.edtEmail.text.toString(),
+                binding.edtPassword.text.toString()
+            )
+            signUpSuccess.observe(requireActivity(), {
+                signUpSuccess.removeObservers(viewLifecycleOwner)
+                if (it == true) {
+                    handleDelay(300) {
+                        showProgressDialog(false)
+                        callback?.invoke(binding.edtEmail.text.toString(), binding.edtPassword.text.toString())
+                        navigator.pop()
                     }
-                })
-            }
+                } else {
+                    handleDelay(300) {
+                        showProgressDialog(false)
+                        context?.let { context -> showToast(context, "not success") }
+                    }
+                }
+            })
 
             /*//UPDATE
             val user = User(

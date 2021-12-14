@@ -11,9 +11,12 @@ import com.example.androidkotlinchaning.utlis.validateEmail
 class SignUpViewModel(
     private val userManager: UserManager
 ) : BaseViewModel() {
-    fun addUser(user: User): LiveData<Boolean> {
-        if (validateEmail(user.emailAddress)) {
-            return userManager.addUser(user, UserManager.InsertPolicy.IGNORE)
+    fun addUser(name: String, email: String, password: String): LiveData<Boolean> {
+        if (email.validateEmail()) {
+            val user = getUser().value?.size?.let { User(it, name, email, password) }
+            user?.let {
+                return userManager.addUser(it, UserManager.InsertPolicy.IGNORE)
+            }
         }
 
         return just(false)

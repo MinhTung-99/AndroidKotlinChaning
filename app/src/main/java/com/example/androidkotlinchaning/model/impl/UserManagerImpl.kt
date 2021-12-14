@@ -39,11 +39,6 @@ class UserManagerImpl(private val sharePreferentManager: SharePreferentManager?)
                 }
             }
         }
-
-        users.add(user)
-        val json = gson.toJson(users)
-        sharePreferentManager?.save("users", json)
-        return just(true)
     }
 
     private fun insertUser(user: User, users: ArrayList<User>) {

@@ -12,8 +12,8 @@ fun<T> just(value: T) : LiveData<T> {
     return MutableLiveData(value)
 }
 
-fun validateEmail (email: String) : Boolean {
-    return !TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+fun String.validateEmail () : Boolean {
+    return !TextUtils.isEmpty(this) && android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches()
 }
 
 fun handleDelay (milliSecond: Long, callback: ()->Unit) {

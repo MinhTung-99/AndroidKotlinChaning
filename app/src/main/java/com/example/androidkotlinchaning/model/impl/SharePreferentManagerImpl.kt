@@ -5,7 +5,7 @@ import com.example.androidkotlinchaning.model.SharePreferentManager
 import com.example.androidkotlinchaning.model.User
 import com.google.gson.GsonBuilder
 
-class SharePreferentManagerImpl(val sharedPref: SharedPreferences?) : SharePreferentManager {
+class SharePreferentManagerImpl(private val sharedPref: SharedPreferences?) : SharePreferentManager {
     val editor: SharedPreferences.Editor? by lazy { sharedPref?.edit() }
 
     override fun save(key: String, value: String) {
