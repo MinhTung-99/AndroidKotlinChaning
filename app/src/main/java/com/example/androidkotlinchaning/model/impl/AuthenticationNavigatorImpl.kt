@@ -7,21 +7,12 @@ import com.example.androidkotlinchaning.BaseActivity
 import com.example.androidkotlinchaning.MainActivity
 import com.example.androidkotlinchaning.model.AuthenticationNavigator
 
-class AuthenticationNavigatorImpl(activity: BaseActivity) : AuthenticationNavigator,
-    NavigatorImpl(activity) {
+class AuthenticationNavigatorImpl(override val activity: BaseActivity) : AuthenticationNavigator {
     override val fragments: MutableList<Fragment> = mutableListOf()
 
     override fun navigateToMain(context: Context) {
         val intent = Intent(context, MainActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         context.startActivity(intent)
-    }
-
-    override fun push(fragment: Fragment) {
-        super.push(fragment)
-    }
-
-    override fun pop() {
-        super.pop()
     }
 }

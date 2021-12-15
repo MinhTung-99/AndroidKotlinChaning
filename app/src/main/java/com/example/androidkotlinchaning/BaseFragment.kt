@@ -3,19 +3,15 @@ package com.example.androidkotlinchaning
 import androidx.fragment.app.Fragment
 
 open class BaseFragment : Fragment() {
-    private val customProgressDialogFragment = CustomProgressDialogFragment()
+    private var customProgressDialogFragment: CustomProgressDialogFragment? = null
 
-    protected fun showProgressDialog(show: Boolean) {
-        if (show) {
-            if (!customProgressDialogFragment.isShowing) {
-                customProgressDialogFragment.isShowing = true
-                activity?.let { customProgressDialogFragment.show(it?.supportFragmentManager, "") }
-            }
-        } else {
-            if (customProgressDialogFragment.isShowing) {
-                customProgressDialogFragment.dismiss()
-                customProgressDialogFragment.isShowing = false
-            }
-        }
+    protected fun showProgress () {
+        customProgressDialogFragment = CustomProgressDialogFragment()
+        activity?.let { customProgressDialogFragment?.show(it?.supportFragmentManager, "") }
+    }
+
+    protected fun hideProgress () {
+        customProgressDialogFragment?.dismiss()
+        customProgressDialogFragment = null
     }
 }

@@ -3,8 +3,11 @@ package com.example.androidkotlinchaning.utlis
 import android.annotation.SuppressLint
 import android.content.Context
 import androidx.fragment.app.Fragment
+import com.example.androidkotlinchaning.BaseActivity
+import com.example.androidkotlinchaning.model.Navigator
 import com.example.androidkotlinchaning.model.SharePreferentManager
 import com.example.androidkotlinchaning.model.UserManager
+import com.example.androidkotlinchaning.model.impl.NavigatorImpl
 import com.example.androidkotlinchaning.model.impl.SharePreferentManagerImpl
 import com.example.androidkotlinchaning.model.impl.UserManagerImpl
 import com.example.androidkotlinchaning.view.Login.LoginFragment

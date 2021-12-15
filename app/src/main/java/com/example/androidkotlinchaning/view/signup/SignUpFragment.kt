@@ -9,6 +9,7 @@ import com.example.androidkotlinchaning.BaseFragment
 import com.example.androidkotlinchaning.databinding.FragmentSignUpBinding
 import com.example.androidkotlinchaning.model.Navigator
 import com.example.androidkotlinchaning.model.impl.NavigatorImpl
+import com.example.androidkotlinchaning.model.pop
 import com.example.androidkotlinchaning.utlis.InjectUtils
 import com.example.androidkotlinchaning.utlis.handleDelay
 import com.example.androidkotlinchaning.utlis.showToast
@@ -39,7 +40,7 @@ class SignUpFragment(val callback:  ((String, String) -> Unit)? = null) : BaseFr
         navigator = NavigatorImpl(requireActivity() as BaseActivity)
 
         binding.btnSignUp.setOnClickListener {
-            showProgressDialog(true)
+            showProgress()
 
             val signUpSuccess = viewModel.addUser(
                 binding.edtName.text.toString(),
@@ -49,7 +50,7 @@ class SignUpFragment(val callback:  ((String, String) -> Unit)? = null) : BaseFr
             signUpSuccess.observe(requireActivity(), {
                 signUpSuccess.removeObservers(viewLifecycleOwner)
                 handleDelay(300) {
-                    showProgressDialog(false)
+                    hideProgress()
                     if (it) {
                         callback?.invoke(binding.edtEmail.text.toString(), binding.edtPassword.text.toString())
                         navigator.pop()

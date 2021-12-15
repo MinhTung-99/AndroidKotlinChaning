@@ -1,23 +1,18 @@
 package com.example.androidkotlinchaning.view.Login
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.example.androidkotlinchaning.AuthenticationActivity
 import com.example.androidkotlinchaning.BaseFragment
-import com.example.androidkotlinchaning.MainActivity
 import com.example.androidkotlinchaning.databinding.FragmentLoginBinding
+import com.example.androidkotlinchaning.model.AuthenticationNavigator
+import com.example.androidkotlinchaning.model.push
 import com.example.androidkotlinchaning.utlis.InjectUtils
 import com.example.androidkotlinchaning.utlis.handleDelay
 import com.example.androidkotlinchaning.utlis.showToast
 import com.example.androidkotlinchaning.view.signup.SignUpFragment
-import com.example.androidkotlinchaning.view.signup.SignUpViewModel
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 class LoginFragment : BaseFragment() {
 
@@ -50,10 +45,10 @@ class LoginFragment : BaseFragment() {
         }
 
         binding.btnSignUp.setOnClickListener {
-            showProgressDialog(true)
+            showProgress()
 
             handleDelay(300) {
-                showProgressDialog(false)
+                hideProgress()
                 val loginSuccess = viewModel.login(
                     binding.edtEmail.text.toString(),
                     binding.edtPassword.text.toString()
@@ -62,7 +57,8 @@ class LoginFragment : BaseFragment() {
                 loginSuccess.observe(requireActivity(), {
                     if (it) {
                         context?.let { context ->
-                            (activity as? AuthenticationActivity)?.navigator?.navigateToMain(context)
+                            ((activity as? AuthenticationActivity)?.navigator as? AuthenticationNavigator)
+                                ?.navigateToMain(context)
                         }
                     } else {
                         context?.showToast("account or password not true")

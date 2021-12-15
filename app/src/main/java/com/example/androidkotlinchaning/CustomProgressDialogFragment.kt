@@ -10,8 +10,6 @@ import androidx.fragment.app.DialogFragment
 
 class CustomProgressDialogFragment : DialogFragment() {
 
-    var isShowing = false
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
