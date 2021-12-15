@@ -1,7 +1,5 @@
 package com.example.androidkotlinchaning
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -33,11 +31,17 @@ class CustomProgressDialogFragment : DialogFragment() {
 
     companion object {
         private val customProgressDialogFragment = CustomProgressDialogFragment()
+        private var isShowing = true
+
         fun show(activity: BaseActivity) {
-            activity?.let { customProgressDialogFragment?.show(it?.supportFragmentManager, "") }
+            if (isShowing) {
+                isShowing = false
+                customProgressDialogFragment.show(activity.supportFragmentManager, "")
+            }
         }
-        fun hide () {
-            customProgressDialogFragment?.dismiss()
+
+        fun hide() {
+            customProgressDialogFragment.dismiss()
         }
     }
 }
