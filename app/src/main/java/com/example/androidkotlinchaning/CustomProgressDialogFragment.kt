@@ -30,4 +30,14 @@ class CustomProgressDialogFragment : DialogFragment() {
             dialog?.setCanceledOnTouchOutside(false)
         }
     }
+
+    companion object {
+        private val customProgressDialogFragment = CustomProgressDialogFragment()
+        fun show(activity: BaseActivity) {
+            activity?.let { customProgressDialogFragment?.show(it?.supportFragmentManager, "") }
+        }
+        fun hide () {
+            customProgressDialogFragment?.dismiss()
+        }
+    }
 }
