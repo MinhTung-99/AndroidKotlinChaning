@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/MyGit/AndroidKotlinChaning/app/src/main/res/layout/activity_main.xml" value="0.2265625" />
+        <entry key="..\:/MyGit/AndroidKotlinChaning/app/src/main/res/layout/custom_dialog_fragment.xml" value="0.2265625" />
+        <entry key="..\:/MyGit/AndroidKotlinChaning/app/src/main/res/layout/fragment_login.xml" value="0.2265625" />
         <entry key="..\:/Users/tung0/Documents/AndroidKotlinChaning/app/src/main/res/layout/activity_main.xml" value="0.3625" />
       </map>
     </option>
