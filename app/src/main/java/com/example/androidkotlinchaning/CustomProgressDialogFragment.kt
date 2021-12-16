@@ -31,16 +31,17 @@ class CustomProgressDialogFragment : DialogFragment() {
 
     companion object {
         private val customProgressDialogFragment = CustomProgressDialogFragment()
-        private var isShowing = true
+        private var isShowing = false
 
         fun show(activity: BaseActivity) {
-            if (isShowing) {
-                isShowing = false
+            if (!isShowing) {
+                isShowing = true
                 customProgressDialogFragment.show(activity.supportFragmentManager, "")
             }
         }
 
         fun hide() {
+            isShowing = true
             customProgressDialogFragment.dismiss()
         }
     }

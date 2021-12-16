@@ -7,23 +7,24 @@ import com.example.androidkotlinchaning.R
 
 interface Navigator {
     val activity: BaseActivity
+    val idFrameLayout: Int
     val fragments: MutableList<Fragment>
 }
 
 fun Navigator.push(fragment: Fragment) {
     activity.supportFragmentManager
         .beginTransaction()
-        .replace(R.id.fragment, fragment, "tag")
+        .replace(idFrameLayout, fragment, "tag")
         .addToBackStack(null)
         .commit()
 
     fragments.add(fragment)
 }
 
-fun Navigator.add(fragment: Fragment) {
+fun Navigator.replace(fragment: Fragment) {
     activity.supportFragmentManager
         .beginTransaction()
-        .replace(R.id.fragment_main, fragment, "tag")
+        .replace(idFrameLayout, fragment, "tag")
         .addToBackStack(null)
         .commit()
 }

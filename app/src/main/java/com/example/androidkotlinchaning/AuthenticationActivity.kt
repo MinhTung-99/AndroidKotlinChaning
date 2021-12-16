@@ -8,7 +8,7 @@ import com.example.androidkotlinchaning.view.Login.LoginFragment
 
 class AuthenticationActivity : BaseActivity() {
 
-    var navigator: Navigator = AuthenticationNavigatorImpl(this)
+    var navigator: Navigator = AuthenticationNavigatorImpl(this, R.id.fragment)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
