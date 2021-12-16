@@ -3,6 +3,7 @@ package com.example.androidkotlinchaning
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
@@ -21,20 +22,25 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.bottomNavigationView.itemIconTintList = null
 
-        val menu = binding.bottomNavigationView.menu
+       /* val menu = binding.bottomNavigationView.menu
         val menuItem = menu.findItem(R.id.menu_profile)
         Glide.with(this)
             .asBitmap()
-            .load("https://cdn.tgdd.vn/Files/2020/06/08/1261696/moi-tai-bo-hinh-nen-asus-rog-2020-moi-nhat_800x450.jpg")
+            .load("https://kenh14cdn.com/thumb_w/660/2020/7/17/brvn-15950048783381206275371.jpg")
             .apply(
-                circleCropTransform()
-                    .placeholder(R.drawable.ic_personal)
+                circleCropTransform().placeholder(R.drawable.ic_personal)
             )
         .into(object : SimpleTarget<Bitmap>() {
             override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
                 menuItem?.icon = BitmapDrawable(resources, resource)
             }
-        })
+
+            override fun onLoadFailed(errorDrawable: Drawable?) {
+                super.onLoadFailed(errorDrawable)
+                menuItem?.icon = errorDrawable
+            }
+        })*/
     }
 }
