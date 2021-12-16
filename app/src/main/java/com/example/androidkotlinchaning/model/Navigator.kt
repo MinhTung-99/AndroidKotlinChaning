@@ -10,7 +10,7 @@ interface Navigator {
     val fragments: MutableList<Fragment>
 }
 
-fun Navigator.push(fragment: Fragment){
+fun Navigator.push(fragment: Fragment) {
     activity.supportFragmentManager
         .beginTransaction()
         .replace(R.id.fragment, fragment, "tag")
@@ -18,6 +18,14 @@ fun Navigator.push(fragment: Fragment){
         .commit()
 
     fragments.add(fragment)
+}
+
+fun Navigator.add(fragment: Fragment) {
+    activity.supportFragmentManager
+        .beginTransaction()
+        .replace(R.id.fragment_main, fragment, "tag")
+        .addToBackStack(null)
+        .commit()
 }
 
 fun Navigator.pop() {

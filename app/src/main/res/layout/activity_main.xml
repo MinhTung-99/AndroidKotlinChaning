@@ -4,9 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/white_FBFCFE">
+
+    <FrameLayout
+        android:id="@+id/fragment_main"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/coordinator"/>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent">
@@ -24,8 +35,10 @@
                 android:layout_height="match_parent"
                 android:paddingBottom="35dp"
                 app:itemIconSize="30sp"
+                android:elevation="10dp"
                 app:labelVisibilityMode="unlabeled"
                 app:itemIconTint="@color/item_selected_change_nav"
+                android:background="@color/white_FFFFFF"
                 app:menu="@menu/menu" />
 
         </com.google.android.material.bottomappbar.BottomAppBar>

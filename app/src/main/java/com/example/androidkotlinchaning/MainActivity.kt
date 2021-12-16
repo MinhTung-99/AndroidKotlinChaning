@@ -1,46 +1,48 @@
 package com.example.androidkotlinchaning
 
-import android.annotation.SuppressLint
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions.circleCropTransform
-import com.bumptech.glide.request.target.SimpleTarget
-import com.bumptech.glide.request.transition.Transition
 import com.example.androidkotlinchaning.databinding.ActivityMainBinding
+import com.example.androidkotlinchaning.model.add
+import com.example.androidkotlinchaning.model.impl.MainNavigatorImpl
+import com.example.androidkotlinchaning.view.chat.ChatFragment
+import com.example.androidkotlinchaning.view.home.HomeFragment
+import com.example.androidkotlinchaning.view.notify.NotifyFragment
+import com.example.androidkotlinchaning.view.personal.ProfileFragment
 
-
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private val mainNavigator = MainNavigatorImpl(this)
+    private val homeFragment by lazy { HomeFragment() }
+    private val chatFragment by lazy { ChatFragment() }
+    private val notifyFragment by lazy { NotifyFragment() }
+    private val profileFragment by lazy { ProfileFragment() }
 
-    @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.bottomNavigationView.itemIconTintList = null
 
-       /* val menu = binding.bottomNavigationView.menu
-        val menuItem = menu.findItem(R.id.menu_profile)
-        Glide.with(this)
-            .asBitmap()
-            .load("https://kenh14cdn.com/thumb_w/660/2020/7/17/brvn-15950048783381206275371.jpg")
-            .apply(
-                circleCropTransform().placeholder(R.drawable.ic_personal)
-            )
-        .into(object : SimpleTarget<Bitmap>() {
-            override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                menuItem?.icon = BitmapDrawable(resources, resource)
+        mainNavigator.add(homeFragment)
+
+        binding.bottomNavigationView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.menu_home -> {
+                    mainNavigator.add(homeFragment)
+                }
+                R.id.menu_chat -> {
+                    mainNavigator.add(chatFragment)
+                }
+                R.id.menu_notify -> {
+                    mainNavigator.add(notifyFragment)
+                }
+                R.id.menu_profile -> {
+                    mainNavigator.add(profileFragment)
+                }
             }
 
-            override fun onLoadFailed(errorDrawable: Drawable?) {
-                super.onLoadFailed(errorDrawable)
-                menuItem?.icon = errorDrawable
-            }
-        })*/
+            return@setOnItemSelectedListener true
+        }
     }
 }

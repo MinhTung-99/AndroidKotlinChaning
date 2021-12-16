@@ -2,10 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/menu_home"
         android:icon="@drawable/item_home_change"
         android:title="home"/>
 
     <item
+        android:id="@+id/menu_chat"
         android:icon="@drawable/item_chat_change"
         android:title="chat"/>
 
@@ -14,6 +16,7 @@
         android:title="plus"/>
 
     <item
+        android:id="@+id/menu_notify"
         android:icon="@drawable/item_notify_change"
         android:title="notify"/>
 
