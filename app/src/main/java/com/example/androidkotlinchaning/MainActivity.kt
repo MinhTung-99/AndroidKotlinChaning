@@ -29,14 +29,18 @@ class MainActivity : BaseActivity() {
 
         navigator.replace(homeFragment)
 
-        navigator.fragments.add(homeFragment)
-        navigator.fragments.add(chatFragment)
-        navigator.fragments.add(notifyFragment)
-        navigator.fragments.add(profileFragment)
+        addBottomNav()
 
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
-            bottomNavigationController.add(item)
+            bottomNavigationController.get(item.itemId)
             return@setOnItemSelectedListener true
         }
+    }
+
+    private fun addBottomNav () {
+        bottomNavigationController.add(R.id.menu_home, homeFragment)
+        bottomNavigationController.add(R.id.menu_chat, chatFragment)
+        bottomNavigationController.add(R.id.menu_notify, notifyFragment)
+        bottomNavigationController.add(R.id.menu_profile, profileFragment)
     }
 }
