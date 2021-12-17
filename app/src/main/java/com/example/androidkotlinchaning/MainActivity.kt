@@ -32,7 +32,7 @@ class MainActivity : BaseActivity() {
         addBottomNav()
 
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
-            bottomNavigationController.get(item.itemId)
+            bottomNavigationController.setCurrentFragment(item.itemId)
             return@setOnItemSelectedListener true
         }
     }

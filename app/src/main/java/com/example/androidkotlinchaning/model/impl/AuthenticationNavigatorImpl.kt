@@ -8,7 +8,7 @@ import com.example.androidkotlinchaning.MainActivity
 import com.example.androidkotlinchaning.model.AuthenticationNavigator
 
 class AuthenticationNavigatorImpl(override val activity: BaseActivity,
-                                  override val idFrameLayout: Int
+                                  override val containerResId: Int
 ) : AuthenticationNavigator {
     override val fragments: MutableList<Fragment> = mutableListOf()
 

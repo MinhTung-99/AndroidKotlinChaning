@@ -1,20 +1,18 @@
 package com.example.androidkotlinchaning.model
 
-import android.content.Context
 import androidx.fragment.app.Fragment
 import com.example.androidkotlinchaning.BaseActivity
-import com.example.androidkotlinchaning.R
 
 interface Navigator {
     val activity: BaseActivity
-    val idFrameLayout: Int
+    val containerResId: Int
     val fragments: MutableList<Fragment>
 }
 
 fun Navigator.push(fragment: Fragment) {
     activity.supportFragmentManager
         .beginTransaction()
-        .replace(idFrameLayout, fragment, "tag")
+        .replace(containerResId, fragment, "tag")
         .addToBackStack(null)
         .commit()
 
@@ -24,7 +22,7 @@ fun Navigator.push(fragment: Fragment) {
 fun Navigator.replace(fragment: Fragment) {
     activity.supportFragmentManager
         .beginTransaction()
-        .replace(idFrameLayout, fragment, "tag")
+        .replace(containerResId, fragment, "tag")
         .addToBackStack(null)
         .commit()
 }
