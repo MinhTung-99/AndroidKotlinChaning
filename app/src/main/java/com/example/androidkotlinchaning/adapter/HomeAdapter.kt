@@ -8,7 +8,7 @@ import com.example.androidkotlinchaning.databinding.ItemHomeNotImageBinding
 import com.example.androidkotlinchaning.model.Home
 
 class HomeAdapter(
-    private val homes: MutableList<Home>
+    private var homes: MutableList<Home>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val TYPE_IMAGE = 1
@@ -28,22 +28,48 @@ class HomeAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
+        if (homes[position].imageContent != null) {
+            (holder as HomeWithImageViewHolder).setData(homes[position])
+        } else {
+            (holder as HomeNotImageViewHolder).setData(homes[position])
+        }
     }
 
     override fun getItemCount(): Int = homes.size
 
     override fun getItemViewType(position: Int): Int {
-        if (homes[position].type == TYPE_IMAGE) {
+        if (homes[position].imageContent != null) {
             return TYPE_IMAGE
         }
 
         return TYPE_NOT_IMAGE
     }
 
-    class HomeWithImageViewHolder(itemView: ItemHomeImageBinding) : RecyclerView.ViewHolder(itemView.root) {
-
+    fun update (homes: MutableList<Home>) {
+        this.homes = homes
+        notifyDataSetChanged()
     }
-    class HomeNotImageViewHolder(itemView: ItemHomeNotImageBinding) : RecyclerView.ViewHolder(itemView.root) {
 
+    class HomeWithImageViewHolder(binding: ItemHomeImageBinding) : RecyclerView.ViewHolder(binding.root) {
+        private val binding = binding
+        fun setData (home: Home) {
+            binding.imgAvatar.setImageResource(home.avatar)
+            binding.txtName.text = home.name
+            binding.txtTime.text = home.time
+            binding.txtContent.text = home.content
+            binding.txtMoney.text = home.money
+            home.imageContent?.let { binding.imgContent.setImageResource(it) }
+        }
+    }
+
+    class HomeNotImageViewHolder(binding: ItemHomeNotImageBinding) : RecyclerView.ViewHolder(binding.root) {
+        private val binding = binding
+        fun setData (home: Home) {
+            binding.imgAvatar.setImageResource(home.avatar)
+            binding.txtName.text = home.name
+            binding.txtTime.text = home.time
+            binding.txtContent.text = home.content
+            binding.txtMoney.text = home.money
+        }
     }
 }

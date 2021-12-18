@@ -13,9 +13,9 @@
 
     <style name="cardViewStyleHome" parent="CardView" >
         <item name="cardCornerRadius">10dp</item>
-        <item name="android:layout_marginTop">20dp</item>
         <item name="android:layout_marginStart">20dp</item>
         <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:layout_marginTop">10dp</item>
     </style>
 
     <style name="imgAvatarStyleHome">
@@ -24,10 +24,18 @@
     </style>
 
     <style name="txtContentStyleHome">
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">15sp</item>
         <item name="android:layout_marginTop">8dp</item>
         <item name="android:layout_marginStart">10dp</item>
-        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:layout_marginEnd">15dp</item>
+    </style>
+
+    <style name="ImageView.Corner" parent="">
+        <item name="cornerSizeTopRight">10dp</item>
+        <item name="cornerSizeTopLeft">10dp</item>
+        <item name="cornerSizeBottomLeft">10dp</item>
+        <item name="cornerSizeBottomRight">10dp</item>
+        <item name="cornerFamily">rounded</item>
     </style>
 
 </resources>
