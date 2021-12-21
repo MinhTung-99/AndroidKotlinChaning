@@ -5,6 +5,7 @@ import com.example.androidkotlinchaning.databinding.ActivityMainBinding
 import com.example.androidkotlinchaning.model.impl.BottomNavigationControllerImpl
 import com.example.androidkotlinchaning.model.impl.NavigatorImpl
 import com.example.androidkotlinchaning.model.replace
+import com.example.androidkotlinchaning.utlis.InjectUtils
 import com.example.androidkotlinchaning.view.chat.ChatFragment
 import com.example.androidkotlinchaning.view.home.HomeFragment
 import com.example.androidkotlinchaning.view.notify.NotifyFragment
@@ -13,7 +14,7 @@ import com.example.androidkotlinchaning.view.personal.ProfileFragment
 class MainActivity : BaseActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val navigator = NavigatorImpl(this, R.id.fragment_main)
+    private val navigator = InjectUtils.getNavigator(this)
     private val bottomNavigationController = BottomNavigationControllerImpl(navigator)
 
     private val homeFragment by lazy { HomeFragment() }

@@ -27,8 +27,8 @@ class HomeAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-
-        if (homes[position].imageContent != null) {
+        val home = homes[position]
+        if (home.imageContent != null) {
             (holder as HomeWithImageViewHolder).setData(homes[position])
         } else {
             (holder as HomeNotImageViewHolder).setData(homes[position])
