@@ -8,12 +8,14 @@ import com.example.androidkotlinchaning.model.Home
 import com.example.androidkotlinchaning.repository.HomeRepository
 import com.example.androidkotlinchaning.repository.remote.HomeRemoteDataSource
 
-class HomeViewModel : BaseViewModel() {
+class HomeViewModel(
+    private val homeRepository: HomeRepository
+) : BaseViewModel() {
 
     private val mutableLiveData: MutableLiveData<MutableList<Home>> by lazy { MutableLiveData() }
 
     fun getHomes () : LiveData<MutableList<Home>> {
-        mutableLiveData.postValue(HomeRepository(HomeRemoteDataSource()).getHome())
+        mutableLiveData.postValue(homeRepository.getHome())
         return mutableLiveData
     }
 }

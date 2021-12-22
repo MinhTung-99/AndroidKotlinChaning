@@ -11,6 +11,8 @@ import com.example.androidkotlinchaning.model.UserManager
 import com.example.androidkotlinchaning.model.impl.NavigatorImpl
 import com.example.androidkotlinchaning.model.impl.SharePreferentManagerImpl
 import com.example.androidkotlinchaning.model.impl.UserManagerImpl
+import com.example.androidkotlinchaning.repository.HomeRepository
+import com.example.androidkotlinchaning.repository.remote.HomeRemoteDataSource
 import com.example.androidkotlinchaning.view.Login.LoginFragment
 import com.example.androidkotlinchaning.view.Login.LoginViewModelFactory
 import com.example.androidkotlinchaning.view.signup.SignUpFragment
