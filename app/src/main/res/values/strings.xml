@@ -10,4 +10,6 @@
     <string name="sign_in">Sign in</string>
     <string name="full_name">FULL NAME</string>
     <string name="already_have_an_account">Already have an account?</string>
+    <string name="all_categories">All Categories</string>
+    <string name="chicago_il_60611_usa">Chicago, IL 60611, USA</string>
 </resources>

@@ -4,12 +4,15 @@ import android.annotation.SuppressLint
 import android.content.Context
 import androidx.fragment.app.Fragment
 import com.example.androidkotlinchaning.BaseActivity
+import com.example.androidkotlinchaning.R
 import com.example.androidkotlinchaning.model.Navigator
 import com.example.androidkotlinchaning.model.SharePreferentManager
 import com.example.androidkotlinchaning.model.UserManager
 import com.example.androidkotlinchaning.model.impl.NavigatorImpl
 import com.example.androidkotlinchaning.model.impl.SharePreferentManagerImpl
 import com.example.androidkotlinchaning.model.impl.UserManagerImpl
+import com.example.androidkotlinchaning.repository.HomeRepository
+import com.example.androidkotlinchaning.repository.remote.HomeRemoteDataSource
 import com.example.androidkotlinchaning.view.Login.LoginFragment
 import com.example.androidkotlinchaning.view.Login.LoginViewModelFactory
 import com.example.androidkotlinchaning.view.signup.SignUpFragment
@@ -18,6 +21,7 @@ import com.example.androidkotlinchaning.view.signup.SignUpViewModelFactory
 @SuppressLint("StaticFieldLeak")
 object InjectUtils {
     private lateinit var context: Context
+    private lateinit var navigator: Navigator
 
     private val sharePreferentManager: SharePreferentManager by lazy {
         val sharedPref = context.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
@@ -34,5 +38,10 @@ object InjectUtils {
             is SignUpFragment -> fragment.viewModelFactory = SignUpViewModelFactory(userManager)
             is LoginFragment -> fragment.viewModelFactory = LoginViewModelFactory(userManager)
         }
+    }
+
+    fun getNavigator (activity: BaseActivity) : Navigator {
+        navigator = NavigatorImpl(activity, R.id.fragment_main)
+        return navigator
     }
 }

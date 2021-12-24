@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.androidkotlinchaning.BaseActivity
 import com.example.androidkotlinchaning.BaseFragment
+import com.example.androidkotlinchaning.CustomProgressDialogFragment
+import com.example.androidkotlinchaning.R
 import com.example.androidkotlinchaning.databinding.FragmentSignUpBinding
 import com.example.androidkotlinchaning.model.Navigator
 import com.example.androidkotlinchaning.model.impl.NavigatorImpl
@@ -37,10 +39,10 @@ class SignUpFragment(val callback:  ((String, String) -> Unit)? = null) : BaseFr
 
         InjectUtils.inject(this)
         viewModel = viewModelFactory.create(SignUpViewModel::class.java)
-        navigator = NavigatorImpl(requireActivity() as BaseActivity)
+        navigator = NavigatorImpl(requireActivity() as BaseActivity, R.id.fragment)
 
         binding.btnSignUp.setOnClickListener {
-            showProgress()
+            CustomProgressDialogFragment.show(activity as BaseActivity)
 
             val signUpSuccess = viewModel.addUser(
                 binding.edtName.text.toString(),
@@ -50,7 +52,7 @@ class SignUpFragment(val callback:  ((String, String) -> Unit)? = null) : BaseFr
             signUpSuccess.observe(requireActivity(), {
                 signUpSuccess.removeObservers(viewLifecycleOwner)
                 handleDelay(300) {
-                    hideProgress()
+                    CustomProgressDialogFragment.hide()
                     if (it) {
                         callback?.invoke(binding.edtEmail.text.toString(), binding.edtPassword.text.toString())
                         navigator.pop()

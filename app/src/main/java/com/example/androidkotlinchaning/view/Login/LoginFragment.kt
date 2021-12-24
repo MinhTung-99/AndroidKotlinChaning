@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.androidkotlinchaning.AuthenticationActivity
+import com.example.androidkotlinchaning.BaseActivity
 import com.example.androidkotlinchaning.BaseFragment
+import com.example.androidkotlinchaning.CustomProgressDialogFragment
 import com.example.androidkotlinchaning.databinding.FragmentLoginBinding
 import com.example.androidkotlinchaning.model.AuthenticationNavigator
 import com.example.androidkotlinchaning.model.push
@@ -45,10 +47,10 @@ class LoginFragment : BaseFragment() {
         }
 
         binding.btnSignUp.setOnClickListener {
-            showProgress()
+            CustomProgressDialogFragment.show(activity as BaseActivity)
 
             handleDelay(300) {
-                hideProgress()
+                CustomProgressDialogFragment.hide()
                 val loginSuccess = viewModel.login(
                     binding.edtEmail.text.toString(),
                     binding.edtPassword.text.toString()

@@ -7,7 +7,9 @@ import com.example.androidkotlinchaning.BaseActivity
 import com.example.androidkotlinchaning.MainActivity
 import com.example.androidkotlinchaning.model.AuthenticationNavigator
 
-class AuthenticationNavigatorImpl(override val activity: BaseActivity) : AuthenticationNavigator {
+class AuthenticationNavigatorImpl(override val activity: BaseActivity,
+                                  override val containerResId: Int
+) : AuthenticationNavigator {
     override val fragments: MutableList<Fragment> = mutableListOf()
 
     override fun navigateToMain(context: Context) {

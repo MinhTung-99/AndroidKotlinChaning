@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/cardViewStyleHome">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_avatar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_avatar"
+            style="@style/imgAvatarStyleHome"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/txt_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Martin Palmer"
+            android:textColor="@color/black_161F3D"
+            app:layout_constraintStart_toEndOf="@+id/img_avatar"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/txt_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Today, 03:24 PM"
+            android:layout_marginStart="10dp"
+            android:textSize="10sp"
+            android:textColor="#707070"
+            app:layout_constraintTop_toBottomOf="@+id/txt_name"
+            app:layout_constraintStart_toEndOf="@+id/img_avatar"
+            tools:ignore="SmallSp" />
+
+        <TextView
+            android:id="@+id/txt_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/txt_time"
+            app:layout_constraintStart_toEndOf="@+id/img_avatar"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="What is the loop of Creation? How is there something from nothing? In spite of the fact that it is impossible to prove that anythin…."
+            style="@style/txtContentStyleHome"/>
+
+        <ImageView
+            android:id="@+id/img_love"
+            android:layout_width="27dp"
+            android:layout_height="27dp"
+            android:src="@drawable/ic_love"
+            app:layout_constraintStart_toEndOf="@+id/img_avatar"
+            app:layout_constraintTop_toBottomOf="@+id/txt_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="10dp"/>
+
+        <ImageView
+            android:id="@+id/img_comment"
+            android:layout_width="27dp"
+            android:layout_height="27dp"
+            android:src="@drawable/ic_comment"
+            android:layout_marginStart="20dp"
+            app:layout_constraintStart_toEndOf="@+id/img_love"
+            app:layout_constraintTop_toBottomOf="@+id/txt_content"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:id="@+id/txt_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$340.00"
+            android:layout_marginEnd="20dp"
+            android:textColor="@color/black_161F3D"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@+id/txt_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/img_comment"
+            app:layout_constraintBottom_toBottomOf="@+id/img_comment"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:background="@color/white_FFFFFF"
+            app:layout_constraintTop_toBottomOf="@+id/img_comment"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <ImageView
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:src="@drawable/menu_dots"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_name"
+            android:layout_marginEnd="20dp"
+            android:paddingTop="15dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

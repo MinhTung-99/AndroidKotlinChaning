@@ -1,7 +1,5 @@
 package com.example.androidkotlinchaning
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -28,6 +26,23 @@ class CustomProgressDialogFragment : DialogFragment() {
             dialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
             dialog?.setCancelable(false)
             dialog?.setCanceledOnTouchOutside(false)
+        }
+    }
+
+    companion object {
+        private val customProgressDialogFragment = CustomProgressDialogFragment()
+        private var isShowing = false
+
+        fun show(activity: BaseActivity) {
+            if (!isShowing) {
+                isShowing = true
+                customProgressDialogFragment.show(activity.supportFragmentManager, "")
+            }
+        }
+
+        fun hide() {
+            isShowing = true
+            customProgressDialogFragment.dismiss()
         }
     }
 }
