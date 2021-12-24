@@ -10,6 +10,7 @@ import com.example.androidkotlinchaning.adapter.HomeAdapter
 import com.example.androidkotlinchaning.databinding.FragmentHomeBinding
 import com.example.androidkotlinchaning.model.Home
 import com.example.androidkotlinchaning.repository.HomeRepository
+import com.example.androidkotlinchaning.repository.impl.HomeRepositoryImpl
 import com.example.androidkotlinchaning.repository.remote.HomeRemoteDataSource
 
 class HomeFragment : BaseFragment() {
@@ -31,7 +32,7 @@ class HomeFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModelFactory = HomeViewModelFactory(HomeRepository(HomeRemoteDataSource()))
+        viewModelFactory = HomeViewModelFactory(HomeRepositoryImpl(HomeRemoteDataSource()))
         viewModel = viewModelFactory.create(HomeViewModel::class.java)
         homeAdapter = HomeAdapter(mutableListOf())
         binding.rvHome.adapter = homeAdapter

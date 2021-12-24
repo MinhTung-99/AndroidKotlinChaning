@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.androidkotlinchaning.repository.HomeRepository
 
 class HomeViewModelFactory (
-    val homeRepository: HomeRepository
+    private val homeRepository: HomeRepository
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return HomeViewModel(
